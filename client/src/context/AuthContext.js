@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import axios from 'axios';
+import API from '../api';
 
 const AuthContext = createContext();
 
@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       fetchMe();
     } else {
       setLoading(false);
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchMe = async () => {
     try {
-      const { data } = await axios.get('/api/auth/me');
+      const { data } = await API.get('/auth/me');
       setUser(data.user);
     } catch {
       logout();
@@ -31,18 +31,18 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (email, password) => {
-    const { data } = await axios.post('/api/auth/login', { email, password });
+    const { data } = await API.post('/auth/login', { email, password });
     localStorage.setItem('heybuddy_token', data.token);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+    API.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
     setToken(data.token);
     setUser(data.user);
     return data;
   };
 
   const signup = async (formData) => {
-    const { data } = await axios.post('/api/auth/signup', formData);
+   const { data } = await API.post('/auth/signup', formData);
     localStorage.setItem('heybuddy_token', data.token);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+   API.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
     setToken(data.token);
     setUser(data.user);
     return data;
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem('heybuddy_token');
-    delete axios.defaults.headers.common['Authorization'];
+    delete API.defaults.headers.common['Authorization'];
     setToken(null);
     setUser(null);
   };
