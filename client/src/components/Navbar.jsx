@@ -4,11 +4,11 @@ import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 
 const Navbar = () => {
-  const [scrolled, setScrolled]   = useState(false);
-  const [menuOpen, setMenuOpen]   = useState(false);
-  const { user, logout }          = useAuth();
-  const navigate                  = useNavigate();
-  const location                  = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -24,12 +24,12 @@ const Navbar = () => {
 
   const navLinks = [
     { path: '/subjects', label: 'Subjects' },
-    { path: '/notes',    label: 'Notes'    },
-    { path: '/pyq',      label: 'PYQ'      },
-    { path: '/labs',     label: 'Labs'     },
+    { path: '/notes', label: 'Notes' },
+    { path: '/pyq', label: 'PYQ' },
+    { path: '/labs', label: 'Labs' },
     { path: '/projects', label: 'Projects' },
+    { path: '/about', label: 'About' },   // ✅ ADD THIS
   ];
-
   const isActive = (path) => location.pathname === path;
 
   return (
@@ -76,7 +76,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link to="/login"  className="btn-secondary text-sm py-2 px-4 no-underline">Login</Link>
+                <Link to="/login" className="btn-secondary text-sm py-2 px-4 no-underline">Login</Link>
                 <Link to="/signup" className="btn-primary  text-sm py-2 px-4 no-underline">Sign Up</Link>
               </>
             )}
@@ -110,7 +110,7 @@ const Navbar = () => {
               <button onClick={handleLogout} className="btn-secondary text-sm py-2 px-4 w-full">Logout</button>
             ) : (
               <>
-                <Link to="/login"  onClick={() => setMenuOpen(false)} className="btn-secondary text-sm py-2 px-4 no-underline flex-1 text-center">Login</Link>
+                <Link to="/login" onClick={() => setMenuOpen(false)} className="btn-secondary text-sm py-2 px-4 no-underline flex-1 text-center">Login</Link>
                 <Link to="/signup" onClick={() => setMenuOpen(false)} className="btn-primary  text-sm py-2 px-4 no-underline flex-1 text-center">Sign Up</Link>
               </>
             )}

@@ -15,6 +15,7 @@ import Notes from './pages/Notes';
 import PYQ from './pages/Pyq';
 import Labs from './pages/Labs';
 import Projects from './pages/Projects';
+import About from './pages/About';
 import Dashboard from './pages/Dashboard';
 
 const PrivateRoute = ({ children }) => {
@@ -44,6 +45,7 @@ function AppContent() {
         <Route path="/pyq" element={<PYQ />} />
         <Route path="/labs" element={<Labs />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/about" element={<About />} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
       </Routes>
       <ToastContainer theme="dark" position="top-right" />
